@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>L'agenda du sport Nantais</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Open+Sans:wght@400;600;700&family=Kalam:wght@700&display=swap">
+<style>
+  :root{
+    --rose:#E42693;
+    --rose-hover:#C82181;
+    --rose-active:#B21E73;
+    --rose-text:#C82181;
+    --rose-pale:#FCE8F2;
+
+    --violet:#5B419A;
+    --violet-hover:#503988;
+    --violet-active:#473378;
+    --violet-pale:#EBE5F2;
+
+    --violet-deep:#432B5B;
+    --violet-deep-hover:#3B2650;
+
+    --white:#FFFFFF;
+    --offwhite:#FAFAFA;
+    --anthracite:#464B53;
+    --soft-black:#1A1A1A;
+
+    --border:#EBE5F2;
+    --border-strong:#5B419A;
+    --focus-ring:0 0 0 3px rgba(228,38,147,0.35);
+
+    --shadow-sm:0 1px 2px rgba(67,43,91,.06);
+    --shadow-md:0 4px 12px rgba(67,43,91,.10);
+    --shadow-cta:0 4px 14px rgba(228,38,147,.30);
+  }
+
+  *{box-sizing:border-box;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:var(--white);
+    color:var(--anthracite);
+    font-family:"Open Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  a{color:var(--violet); text-underline-offset:3px;}
+  a:hover{color:var(--violet-hover);}
+  a:focus-visible, button:focus-visible{outline:none; box-shadow:var(--focus-ring); border-radius:4px;}
+
+  h1,h2,h3{font-family:"Oswald", ui-sans-serif, sans-serif; color:var(--anthracite); margin:0;}
+
+  .section{padding:64px 24px;}
+  .inner{max-width:760px; margin:0 auto;}
+
+  /* ---------- hero ---------- */
+  .hero{background:var(--white);}
+  .eyebrow{
+    font-family:"Open Sans", sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--violet);
+    margin:0 0 16px;
+  }
+  h1.title{
+    font-weight:600;
+    font-size:clamp(34px, 6vw, 48px);
+    line-height:1.10;
+    text-wrap:balance;
+  }
+  .punchline{
+    font-family:"Kalam", cursive;
+    font-weight:700;
+    text-transform:uppercase;
+    color:var(--rose);
+    font-size:clamp(19px, 2.6vw, 24px);
+    line-height:1.35;
+    margin:16px 0 0;
+  }
+  .lede{
+    max-width:62ch;
+    color:var(--anthracite);
+    opacity:0.85;
+    font-size:17px;
+    margin:20px 0 0;
+  }
+
+  .next-card{
+    margin-top:32px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow-md);
+    padding:24px 28px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 16px;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    font-family:"Open Sans", sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:4px 12px;
+    border-radius:999px;
+    background:var(--rose-pale);
+    color:var(--rose-text);
+    flex:none;
+  }
+  .next-detail{
+    font-weight:700;
+    color:var(--anthracite);
+    font-size:16px;
+    margin:0;
+    flex:1 1 auto;
+    min-width:200px;
+  }
+  .next-meta{
+    margin:0;
+    width:100%;
+    font-size:14px;
+    color:var(--anthracite);
+    opacity:0.6;
+  }
+
+  .hero-cta{margin-top:20px;}
+
+  /* ---------- filters ---------- */
+  .filters-section{background:var(--offwhite); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .section-label{
+    font-family:"Open Sans", sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--anthracite);
+    opacity:0.6;
+    margin:0 0 16px;
+  }
+  .filters{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:"Open Sans", sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--anthracite);
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:8px 16px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    transition:background .18s cubic-bezier(.4,0,.2,1), border-color .18s cubic-bezier(.4,0,.2,1), color .18s cubic-bezier(.4,0,.2,1);
+  }
+  .chip .n{opacity:0.55; font-size:12px;}
+  .chip[aria-pressed="true"]{
+    color:var(--rose-text);
+    background:var(--rose-pale);
+    border-color:var(--rose-pale);
+  }
+  .chip:hover{border-color:var(--border-strong);}
+  .chip[aria-pressed="true"]:hover{border-color:var(--rose-pale);}
+
+  /* ---------- board ---------- */
+  .board-section{background:var(--white);}
+  .month-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin:40px 0 12px;
+  }
+  .month-head:first-child{margin-top:0;}
+  .month-head h2{
+    font-size:20px;
+    font-weight:500;
+    color:var(--violet);
+    white-space:nowrap;
+  }
+  .month-head .rule{height:1px; flex:1; background:var(--border); align-self:center;}
+  .month-head .count{
+    font-family:"Open Sans", sans-serif;
+    font-size:13px;
+    color:var(--anthracite);
+    opacity:0.5;
+    white-space:nowrap;
+  }
+
+  .board-card{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow-sm);
+    overflow:hidden;
+  }
+
+  .fixture{
+    display:grid;
+    grid-template-columns:60px 1fr auto;
+    align-items:center;
+    gap:16px;
+    padding:16px 20px;
+    border-bottom:1px solid var(--border);
+    background:transparent;
+    transition:background .18s cubic-bezier(.4,0,.2,1);
+  }
+  .board-card .fixture:last-child{border-bottom:none;}
+  .fixture:hover{background:var(--offwhite);}
+  .fixture.next{background:var(--rose-pale);}
+  .fixture[hidden]{display:none;}
+
+  .f-date{line-height:1.15;}
+  .f-date .dow{
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    color:var(--anthracite);
+    opacity:0.5;
+  }
+  .f-date .dom{
+    display:block;
+    font-family:"Oswald", sans-serif;
+    font-size:26px;
+    font-weight:600;
+    color:var(--anthracite);
+    font-variant-numeric:tabular-nums;
+  }
+  .f-date .mon{
+    display:block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.06em;
+    color:var(--anthracite);
+    opacity:0.5;
+  }
+
+  .f-main .title{
+    font-size:15px;
+    font-weight:700;
+    color:var(--anthracite);
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .f-main .sport-icon{font-size:14px;}
+  .f-main .sub{
+    font-size:13px;
+    color:var(--anthracite);
+    opacity:0.6;
+    margin-top:3px;
+  }
+  .next-badge{
+    display:inline-block;
+    font-family:"Open Sans", sans-serif;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--white);
+    background:var(--rose);
+    padding:2px 8px;
+    border-radius:999px;
+  }
+
+  .f-time{
+    font-size:13px;
+    font-weight:600;
+    color:var(--anthracite);
+    opacity:0.75;
+    text-align:right;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+
+  @media (max-width:560px){
+    .fixture{grid-template-columns:44px 1fr; row-gap:6px; padding:14px 16px;}
+    .f-time{grid-column:2; text-align:left; opacity:0.6;}
+    .f-date .dom{font-size:20px;}
+  }
+
+  /* ---------- full calendar cta ---------- */
+  .cta-section{background:var(--violet); color:var(--white);}
+  .cta-section h2{color:var(--white); font-size:28px; font-weight:500; margin-bottom:12px;}
+  .cta-section p{max-width:56ch; color:var(--white); opacity:0.85; margin:0 0 28px; font-size:16px;}
+  .cta-actions{display:flex; flex-wrap:wrap; gap:16px; align-items:center;}
+  .cta-footnote{margin:20px 0 0; font-size:13px; opacity:0.7;}
+  .cta-footnote a{opacity:1;}
+
+  .btn-primary{
+    display:inline-block;
+    font-family:"Open Sans", sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--white);
+    background:var(--rose);
+    padding:14px 28px;
+    border-radius:6px;
+    box-shadow:var(--shadow-cta);
+    transition:background .18s cubic-bezier(.4,0,.2,1), transform .18s cubic-bezier(.4,0,.2,1);
+  }
+  .btn-primary:hover{background:var(--rose-hover); color:var(--white); transform:translateY(-1px);}
+  .btn-primary:active{background:var(--rose-active); transform:translateY(0);}
+
+  .link-inverse{
+    color:var(--white);
+    font-size:14px;
+    font-weight:600;
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .link-inverse:hover{color:var(--rose-pale);}
+
+  /* ---------- footer ---------- */
+  footer.site-footer{
+    padding:24px;
+    background:var(--offwhite);
+    border-top:1px solid var(--border);
+    font-size:13px;
+    color:var(--anthracite);
+    opacity:0.6;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    max-width:760px;
+    margin:0 auto;
+  }
+</style>
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="section hero">
+  <div class="inner">
+    <p class="eyebrow">Nantes, tous terrains</p>
+    <h1 class="title">L'agenda du sport Nantais&nbsp;!</h1>
+    <p class="punchline">Ne ratez plus un événement sportif à Nantes.<br>Votre business s'y joue aussi&nbsp;😉</p>
+    <p class="lede">Foot, hand, basket, volley, rugby, hockey sur glace, futsal. 66 matchs à domicile des clubs nantais, entre octobre 2026 et février 2027. Dans l'ordre où ils tombent.</p>
+
+    <div class="next-card" id="status">
+      <span class="badge">Prochain match</span>
+      <p class="next-detail" id="status-detail">chargement…</p>
+      <p class="next-meta" id="status-meta"></p>
+    </div>
+
+    <a class="btn-primary hero-cta" href="webcal://calendar.google.com/calendar/ical/dd330d9d4daea22bcf5bb9a479f3e66c468db75f51bb2dce9d34fdb62dd9d144%40group.calendar.google.com/public/basic.ics">📲 Ajouter à mon calendrier</a>
+  </div>
+</header>
+
+<section class="section filters-section">
+  <div class="inner">
+    <p class="section-label">Filtrer par sport</p>
+    <nav class="filters" id="filters" aria-label="Filtrer par sport">
+      <button class="chip" data-sport="all" aria-pressed="true">Tous<span class="n">66</span></button>
+      <button class="chip" data-sport="football" aria-pressed="true">⚽ Football<span class="n">13</span></button>
+      <button class="chip" data-sport="basketball" aria-pressed="true">🏀 Basket<span class="n">10</span></button>
+      <button class="chip" data-sport="handball" aria-pressed="true">🤾 Hand<span class="n">8</span></button>
+      <button class="chip" data-sport="volleyball" aria-pressed="true">🏐 Volley<span class="n">9</span></button>
+      <button class="chip" data-sport="rugby" aria-pressed="true">🏉 Rugby<span class="n">6</span></button>
+      <button class="chip" data-sport="hockey" aria-pressed="true">🏒 Hockey<span class="n">14</span></button>
+      <button class="chip" data-sport="futsal" aria-pressed="true">🥅 Futsal<span class="n">6</span></button>
+    </nav>
+  </div>
+</section>
+
+<section class="section board-section">
+  <div class="inner" id="board">
+    <div class="month-head"><h2>Octobre 2026</h2><span class="rule"></span><span class="count">18 rencontres</span></div>
+    <div class="board-card">
+      <div class="fixture" data-sport="football" data-iso="2026-10-10T14:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">10</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs Stade de Reims</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">14h00–16h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-10-10T18:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">10</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Étoile Noire de Strasbourg</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="rugby" data-iso="2026-10-10T19:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">10</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏉</span>Stade Nantais vs RC Annonay</div><div class="sub">Nationale 2 · Stade Pascal-Laporte</div></div>
+        <div class="f-time">19h00–21h00</div>
+      </div>
+      <div class="fixture" data-sport="futsal" data-iso="2026-10-10T21:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">10</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🥅</span>Nantes Métropole Futsal vs Paris Acasa Futsal</div><div class="sub">D1 Futsal · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">21h00–23h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-10-11T17:00:00+02:00">
+        <div class="f-date"><span class="dow">DIM</span><span class="dom">11</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs Vikings Caen</div><div class="sub">Daikin StarLigue · H Arena</div></div>
+        <div class="f-time">17h00–19h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-10-13T20:00:00+02:00">
+        <div class="f-date"><span class="dow">MAR</span><span class="dom">13</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Béziers Volley</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-10-14T20:45:00+02:00">
+        <div class="f-date"><span class="dow">MER</span><span class="dom">14</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs MT Melsungen</div><div class="sub">EHF Champions League · H Arena</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2026-10-16T20:00:00+02:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">16</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Rouen Métropole Basket</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-10-16T20:45:00+02:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">16</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs USL Dunkerque</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="rugby" data-iso="2026-10-17T19:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">17</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏉</span>Stade Nantais vs SASC Saint-Médard</div><div class="sub">Nationale 2 · Stade Pascal-Laporte</div></div>
+        <div class="f-time">19h00–21h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-10-21T20:45:00+02:00">
+        <div class="f-date"><span class="dow">MER</span><span class="dom">21</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs HC Vardar Skopje</div><div class="sub">EHF Champions League · H Arena</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2026-10-23T20:00:00+02:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">23</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Union Gries-Oberhoffen</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-10-24T18:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">24</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Pingouins de Morzine-Avoriaz</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-10-24T18:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">24</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs RC Strasbourg</div><div class="sub">Arkema Première Ligue · Stade Marcel Saupin</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-10-24T20:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">24</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs Chambéry Savoie Mont-Blanc HB</div><div class="sub">Daikin StarLigue · H Arena</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-10-24T20:00:00+02:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">24</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Terville-Florange Olympique Club</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-10-30T20:45:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">30</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs Clermont Foot 63</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-10-31T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">31</span><span class="mon">OCT</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Ours de Villard-de-Lans</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+    </div>
+
+    <div class="month-head"><h2>Novembre 2026</h2><span class="rule"></span><span class="count">17 rencontres</span></div>
+    <div class="board-card">
+      <div class="fixture" data-sport="basketball" data-iso="2026-11-06T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">06</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs JA Vichy</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-11-07T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">07</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs Toulouse FC</div><div class="sub">Arkema Première Ligue · Stade Marcel Saupin</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="rugby" data-iso="2026-11-07T19:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">07</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏉</span>Stade Nantais vs RCS Rumilly</div><div class="sub">Nationale 2 · Stade Pascal-Laporte</div></div>
+        <div class="f-time">19h00–21h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-11-14T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">14</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Lyon Hockey Club</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-11-14T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">14</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs RC Lens</div><div class="sub">Arkema Première Ligue · Stade Marcel Saupin</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-11-14T20:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">14</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs Saint-Raphaël VHB</div><div class="sub">Daikin StarLigue · H Arena</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-11-14T20:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">14</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Vandœuvre Nancy Volley-Ball</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="futsal" data-iso="2026-11-14T21:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">14</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🥅</span>Nantes Métropole Futsal vs UJS Toulouse</div><div class="sub">D1 Futsal · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">21h00–23h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-11-16T00:00:00+01:00">
+        <div class="f-date"><span class="dow">LUN</span><span class="dom">16</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes en Coupe de France Volley</div><div class="sub">1/8 de finale (à confirmer) · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">Toute la journée</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2026-11-20T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">20</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Saint-Chamond Andrézieux Bouthéon Basket</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-11-20T20:45:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">20</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs Grenoble Foot</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-11-21T20:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">21</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs Sélestat Alsace Handball</div><div class="sub">Daikin StarLigue · H Arena</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-11-23T00:00:00+01:00">
+        <div class="f-date"><span class="dow">LUN</span><span class="dom">23</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes en Coupe de France</div><div class="sub">8èmes de finale (à confirmer) · Patinoire du Petit Port</div></div>
+        <div class="f-time">Toute la journée</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-11-27T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">27</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Évreux Volley-Ball</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-11-28T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">28</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Wildcats d'Épinal</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="rugby" data-iso="2026-11-28T19:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">28</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏉</span>Stade Nantais vs ASVEL Villeurbanne Rugby</div><div class="sub">Nationale 2 · Stade Pascal-Laporte</div></div>
+        <div class="f-time">19h00–21h00</div>
+      </div>
+      <div class="fixture" data-sport="futsal" data-iso="2026-11-28T21:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">28</span><span class="mon">NOV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🥅</span>Nantes Métropole Futsal vs Étoile Lavalloise FC</div><div class="sub">D1 Futsal · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">21h00–23h00</div>
+      </div>
+    </div>
+
+    <div class="month-head"><h2>Décembre 2026</h2><span class="rule"></span><span class="count">14 rencontres</span></div>
+    <div class="board-card">
+      <div class="fixture" data-sport="basketball" data-iso="2026-12-04T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">04</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs STB Le Havre</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-12-05T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">05</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Yétis du Mont-Blanc</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2026-12-11T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">11</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Saint-Quentin Basket-Ball</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-12-11T20:45:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">11</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs FC Annecy</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-12-12T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">12</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs OL Lyonnes</div><div class="sub">Arkema Première Ligue · Stade Marcel Saupin</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-12-12T20:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">12</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs Paris Saint-Germain Handball</div><div class="sub">Daikin StarLigue · H Arena</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="futsal" data-iso="2026-12-12T21:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">12</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🥅</span>Nantes Métropole Futsal vs Sporting Club Paris</div><div class="sub">D1 Futsal · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">21h00–23h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-12-14T00:00:00+01:00">
+        <div class="f-date"><span class="dow">LUN</span><span class="dom">14</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes en Coupe de France</div><div class="sub">Quart de finale (à confirmer) · Patinoire du Petit Port</div></div>
+        <div class="f-time">Toute la journée</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-12-14T00:00:00+01:00">
+        <div class="f-date"><span class="dow">LUN</span><span class="dom">14</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes en Coupe de France Volley</div><div class="sub">Quart de finale (à confirmer) · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">Toute la journée</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2026-12-19T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">19</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Éléphants de Chambéry</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2026-12-19T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">19</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs US Saint-Malo</div><div class="sub">Arkema Première Ligue · Stade Marcel Saupin</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="handball" data-iso="2026-12-22T20:00:00+01:00">
+        <div class="f-date"><span class="dow">MAR</span><span class="dom">22</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🤾</span>HBC Nantes vs Limoges Handball</div><div class="sub">Daikin StarLigue · H Arena</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2026-12-22T20:00:00+01:00">
+        <div class="f-date"><span class="dow">MAR</span><span class="dom">22</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Stade Rochelais Basket</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2026-12-22T20:00:00+01:00">
+        <div class="f-date"><span class="dow">MAR</span><span class="dom">22</span><span class="mon">DÉC</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Le Cannet Volley-Ball</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+    </div>
+
+    <div class="month-head"><h2>Janvier 2027</h2><span class="rule"></span><span class="count">16 rencontres</span></div>
+    <div class="board-card">
+      <div class="fixture" data-sport="hockey" data-iso="2027-01-04T00:00:00+01:00">
+        <div class="f-date"><span class="dow">LUN</span><span class="dom">04</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes en Coupe de France</div><div class="sub">Demi-finale (à confirmer) · Patinoire du Petit Port</div></div>
+        <div class="f-time">Toute la journée</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2027-01-08T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">08</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Orléans Loiret Basket</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2027-01-09T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">09</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Remparts de Tours</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="rugby" data-iso="2027-01-09T19:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">09</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏉</span>Stade Nantais vs Stade Bordelais Floirac</div><div class="sub">Nationale 2 · Stade Pascal-Laporte</div></div>
+        <div class="f-time">19h00–21h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2027-01-09T20:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">09</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Saint-Dié-des-Vosges Volley-Ball</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2027-01-15T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">15</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Levallois Paris Basket</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2027-01-15T20:45:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">15</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs FC Metz</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2027-01-16T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">16</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Bisons de Neuilly-sur-Marne</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="futsal" data-iso="2027-01-16T21:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">16</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🥅</span>Nantes Métropole Futsal vs Toulon Métropole Futsal</div><div class="sub">D1 Futsal · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">21h00–23h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2027-01-23T18:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">23</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs Paris Saint-Germain</div><div class="sub">Arkema Première Ligue · Stade Marcel Saupin</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="futsal" data-iso="2027-01-23T21:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">23</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🥅</span>Nantes Métropole Futsal vs Artistes Futsal</div><div class="sub">D1 Futsal · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">21h00–23h00</div>
+      </div>
+      <div class="fixture" data-sport="hockey" data-iso="2027-01-26T18:00:00+01:00">
+        <div class="f-date"><span class="dow">MAR</span><span class="dom">26</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Corsaires de Dunkerque</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+      <div class="fixture" data-sport="basketball" data-iso="2027-01-29T20:00:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">29</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏀</span>Nantes Basket Hermine vs Aix-Maurienne Savoie Basket</div><div class="sub">ELITE 2 · Salle Métropolitaine, Rezé</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+      <div class="fixture" data-sport="football" data-iso="2027-01-29T20:45:00+01:00">
+        <div class="f-date"><span class="dow">VEN</span><span class="dom">29</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">⚽</span>FC Nantes vs EA Guingamp</div><div class="sub">Ligue 2 BKT · Stade de la Beaujoire</div></div>
+        <div class="f-time">20h45–22h45</div>
+      </div>
+      <div class="fixture" data-sport="rugby" data-iso="2027-01-30T19:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">30</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏉</span>Stade Nantais vs Servette RC Genève</div><div class="sub">Nationale 2 · Stade Pascal-Laporte</div></div>
+        <div class="f-time">19h00–21h00</div>
+      </div>
+      <div class="fixture" data-sport="volleyball" data-iso="2027-01-30T20:00:00+01:00">
+        <div class="f-date"><span class="dow">SAM</span><span class="dom">30</span><span class="mon">JANV</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏐</span>Neptunes de Nantes vs Paris Volley-Ball</div><div class="sub">Saforelle Power 6 · Complexe sportif Mangin-Beaulieu</div></div>
+        <div class="f-time">20h00–22h00</div>
+      </div>
+    </div>
+
+    <div class="month-head"><h2>Février 2027</h2><span class="rule"></span><span class="count">1 rencontre</span></div>
+    <div class="board-card">
+      <div class="fixture" data-sport="hockey" data-iso="2027-02-02T18:00:00+01:00">
+        <div class="f-date"><span class="dow">MAR</span><span class="dom">02</span><span class="mon">FÉVR</span></div>
+        <div class="f-main"><div class="title"><span class="sport-icon">🏒</span>Corsaires de Nantes vs Drakkars de Caen</div><div class="sub">Division 1 · Patinoire du Petit Port</div></div>
+        <div class="f-time">18h00–20h00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section">
+  <div class="inner">
+    <h2>Gardez tous les matchs dans votre poche</h2>
+    <p>Abonnez-vous une fois. L'agenda s'ajoute à votre calendrier personnel (iPhone, Android, Outlook, Google Calendar). Chaque nouveau match nantais s'y glisse tout seul, sans rien retélécharger.</p>
+    <div class="cta-actions">
+      <a class="btn-primary" href="webcal://calendar.google.com/calendar/ical/dd330d9d4daea22bcf5bb9a479f3e66c468db75f51bb2dce9d34fdb62dd9d144%40group.calendar.google.com/public/basic.ics">📲 Ajouter à mon calendrier</a>
+      <a class="link-inverse" href="https://calendar.google.com/calendar/render?cid=dd330d9d4daea22bcf5bb9a479f3e66c468db75f51bb2dce9d34fdb62dd9d144%40group.calendar.google.com" target="_blank" rel="noopener">Ajouter via Google Calendar ↗</a>
+    </div>
+    <p class="cta-footnote">Vous préférez juste consulter&nbsp;? <a class="link-inverse" href="https://calendar.google.com/calendar/u/0/embed?src=dd330d9d4daea22bcf5bb9a479f3e66c468db75f51bb2dce9d34fdb62dd9d144@group.calendar.google.com&amp;ctz=Europe/Paris" target="_blank" rel="noopener">voir tout le calendrier, jusqu'en 2027 ↗</a></p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <span>Agenda sport nantais · foot, hand, basket, volley, rugby, hockey, futsal</span>
+  <span>Mis à jour le 6 octobre 2026 à 14:20</span>
+</footer>
+
+<script>
+(function(){
+  var fixtures = Array.prototype.slice.call(document.querySelectorAll('.fixture'));
+  var now = new Date();
+
+  var upcoming = fixtures
+    .map(function(el){ return { el: el, date: new Date(el.getAttribute('data-iso')) }; })
+    .filter(function(f){ return f.date >= now; })
+    .sort(function(a,b){ return a.date - b.date; });
+
+  var statusDetail = document.getElementById('status-detail');
+  var statusMeta = document.getElementById('status-meta');
+
+  if (upcoming.length){
+    var next = upcoming[0];
+    next.el.classList.add('next');
+    var titleEl = next.el.querySelector('.title');
+    var subEl = next.el.querySelector('.sub');
+    var iconEl = titleEl.querySelector('.sport-icon');
+    var matchLabel = (iconEl ? iconEl.textContent + ' ' : '') + titleEl.textContent.replace(iconEl ? iconEl.textContent : '', '').trim();
+
+    var badge = document.createElement('span');
+    badge.className = 'next-badge';
+    badge.textContent = 'Prochain';
+    titleEl.appendChild(badge);
+
+    var fmt = new Intl.DateTimeFormat('fr-FR', { weekday:'long', day:'numeric', month:'long', hour:'2-digit', minute:'2-digit', timeZone:'Europe/Paris' });
+    statusDetail.textContent = matchLabel + ' · ' + subEl.textContent;
+    statusMeta.textContent = fmt.format(next.date);
+  } else {
+    statusDetail.textContent = 'Aucune rencontre à venir dans ce programme';
+    statusMeta.textContent = 'abonnez-vous pour la suite de la saison';
+  }
+
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var active = {};
+  chips.forEach(function(c){ active[c.getAttribute('data-sport')] = true; });
+
+  function applyFilter(){
+    var anySelected = Object.keys(active).some(function(k){ return k !== 'all' && active[k]; });
+    fixtures.forEach(function(el){
+      var sport = el.getAttribute('data-sport');
+      el.hidden = anySelected && !active[sport];
+    });
+    document.querySelectorAll('.month-head').forEach(function(mh){
+      var next = mh.nextElementSibling;
+      var visible = next && Array.prototype.some.call(next.children, function(row){ return !row.hidden; });
+      mh.style.display = visible ? '' : 'none';
+      if (next) next.style.display = visible ? '' : 'none';
+    });
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var sport = chip.getAttribute('data-sport');
+      if (sport === 'all'){
+        chips.forEach(function(c){ active[c.getAttribute('data-sport')] = true; c.setAttribute('aria-pressed','true'); });
+      } else {
+        active[sport] = !active[sport];
+        chip.setAttribute('aria-pressed', String(active[sport]));
+        var allOn = chips.filter(function(c){ return c.getAttribute('data-sport') !== 'all'; })
+                         .every(function(c){ return active[c.getAttribute('data-sport')]; });
+        active.all = allOn;
+        document.querySelector('.chip[data-sport="all"]').setAttribute('aria-pressed', String(allOn));
+      }
+      applyFilter();
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
